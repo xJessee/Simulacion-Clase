@@ -93,7 +93,11 @@ if st.button("▶️ Ejecutar Pruebas de Aleatoriedad"):
         datos_str = [x.strip() for x in data_input.replace(',', ' ').split()]
         datos = np.array([float(x) for x in datos_str if x])
         n = len(datos)
-
+        #  Validación: todos los números deben estar entre 0 y 1
+        if np.any((datos < 0) | (datos > 1)):
+            st.error("Todos los números deben estar entre 0 y 1.")
+            st.stop()
+            
         if n < 2:
             st.error("Debe ingresar al menos 2 números para realizar las pruebas.")
         else:
@@ -144,4 +148,5 @@ if 'run_result' in st.session_state and st.session_state['run_result']:
             - **Estadístico $D$ (K-S):** {st.session_state.get('D_stat', 'N/A'):.4f}
             - **Estadístico $Z_0$ (Corridas):** {st.session_state.get('Z0_runs', 'N/A'):.4f} (Rachas: {st.session_state.get('R_count', 'N/A')})
             """
+
         )
