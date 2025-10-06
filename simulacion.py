@@ -143,18 +143,25 @@ with col_res2:
 
     # Recuperar valores de session_state
     media = np.mean(st.session_state['datos'])
+
     chi_val = st.session_state.get('X0_sq')
+    chi_text = f"{chi_val:.4f}" if chi_val is not None else "N/A"
+
     d_val = st.session_state.get('D_stat')
+    d_text = f"{d_val:.4f}" if d_val is not None else "N/A"
+
     z_val = st.session_state.get('Z0_runs')
+    z_text = f"{z_val:.4f}" if z_val is not None else "N/A"
+
     r_val = st.session_state.get('R_count')
+    r_text = f"{r_val}" if r_val is not None else "N/A"
 
     st.markdown(
         f"""
         - **Media muestral ($\\bar{{R}}$):** {media:.5f}
-        - **Estadístico $\\chi^2_0$ (Varianza):** {chi_val:.4f if chi_val is not None else "N/A"}
-        - **Estadístico $D$ (K-S):** {d_val:.4f if d_val is not None else "N/A"}
-        - **Estadístico $Z_0$ (Corridas):** {z_val:.4f if z_val is not None else "N/A"} 
-          (Rachas: {r_val if r_val is not None else "N/A"})
+        - **Estadístico $\\chi^2_0$ (Varianza):** {chi_text}
+        - **Estadístico $D$ (K-S):** {d_text}
+        - **Estadístico $Z_0$ (Corridas):** {z_text} (Rachas: {r_text})
         """
     )
 
