@@ -138,15 +138,23 @@ if 'run_result' in st.session_state and st.session_state['run_result']:
             """
         )
 
-    with col_res2:
-        st.subheader("Estadísticos Calculados")
-        # Mostrar los estadísticos calculados para revisión
-        st.markdown(
-            f"""
-            - **Media muestral ($\\bar{R}$):** {np.mean(st.session_state['datos']):.5f}
-            - **Estadístico $\\chi^2_0$ (Varianza):** {st.session_state.get('X0_sq', 'N/A'):.4f}
-            - **Estadístico $D$ (K-S):** {st.session_state.get('D_stat', 'N/A'):.4f}
-            - **Estadístico $Z_0$ (Corridas):** {st.session_state.get('Z0_runs', 'N/A'):.4f} (Rachas: {st.session_state.get('R_count', 'N/A')})
-            """
+with col_res2:
+    st.subheader("Estadísticos Calculados")
 
-        )
+    # Recuperar valores de session_state
+    media = np.mean(st.session_state['datos'])
+    chi_val = st.session_state.get('X0_sq')
+    d_val = st.session_state.get('D_stat')
+    z_val = st.session_state.get('Z0_runs')
+    r_val = st.session_state.get('R_count')
+
+    st.markdown(
+        f"""
+        - **Media muestral ($\\bar{{R}}$):** {media:.5f}
+        - **Estadístico $\\chi^2_0$ (Varianza):** {chi_val:.4f if chi_val is not None else "N/A"}
+        - **Estadístico $D$ (K-S):** {d_val:.4f if d_val is not None else "N/A"}
+        - **Estadístico $Z_0$ (Corridas):** {z_val:.4f if z_val is not None else "N/A"} 
+          (Rachas: {r_val if r_val is not None else "N/A"})
+        """
+    )
+
